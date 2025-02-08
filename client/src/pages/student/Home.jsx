@@ -1,6 +1,7 @@
 import Companies from "../../cmponents/student/Companies";
 import CourseSection from "../../cmponents/student/CourseSection";
 import Hero from "../../cmponents/student/Hero";
+import TestimonialsSection from "../../cmponents/student/TestimonialsSection";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
         <Hero />
         <Companies />
         <CourseSection />
+        <TestimonialsSection />
       </div>
     </>
   );
