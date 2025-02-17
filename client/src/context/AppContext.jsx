@@ -32,12 +32,27 @@ export const AppContextProvider = (propes) => {
 
   //  function to calculate course chapter time
   const calculateChapterTime = (chapter) => {
-    let time = 0;
-    chapter.calculateChapterTime.map(
-      (lectue) => (time += lectue.lectureDuration)
+    if (!chapter || !Array.isArray(chapter.lectures)) return "0h 0m"; // Handle undefined case
+    let time = chapter.lectures.reduce(
+      (total, lecture) => total + (lecture.lectureDuration || 0),
+      0
     );
-    return humanizeDuration(time * 60 * 100, { units: ["h", "m"] });
+    return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
   };
+  //
+  //
+  //
+  // const calculateChapterTime = (chapter) => {
+  //   let time = 0;
+  //   chapter.calculateChapterTime.map(
+  //     (lectue) => (time += lectue.lectureDuration)
+  //   );
+  //   return humanizeDuration(time * 60 * 100, { units: ["h", "m"] });
+  // };
+  //
+  //
+  //
+  //
 
   // Function to claculate course duration
   const calculatecourseDuration = (course) => {
@@ -46,6 +61,17 @@ export const AppContextProvider = (propes) => {
       chapter.chapterContent.map((lecture) => (time += lecture.lectureDuration))
     );
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
+  };
+
+  // function calculate to no of lectures in the course
+  const calculateNoOfLectures = (course) => {
+    let totalLectures = 0;
+    course.courseContent.forEach((chapter) => {
+      if (Array.isArray(chapter.chapterContent)) {
+        totalLectures += chapter.chapterContent.length;
+      }
+    });
+    return totalLectures;
   };
 
   useEffect(() => {
@@ -59,6 +85,9 @@ export const AppContextProvider = (propes) => {
     calculateRating,
     isEducator,
     setIsEducator,
+    calculateChapterTime,
+    calculateNoOfLectures,
+    calculatecourseDuration,
   };
   return (
     <AppContext.Provider value={value}>{propes.children}</AppContext.Provider>

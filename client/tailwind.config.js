@@ -16,6 +16,12 @@ export default {
       spacing: {
         "section-height": "500px",
       },
+      maxWidth: {
+        "course-card": "424px",
+      },
+      boxShadow: {
+        "shadow-custom-card": "0xp 4xp 15px 2px rgba(0,0,0,0.1)",
+      },
     },
   },
   plugins: [],
